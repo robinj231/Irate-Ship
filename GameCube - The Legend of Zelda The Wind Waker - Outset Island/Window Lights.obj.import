@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Window Lights.obj-c83b76fa1bb52be74ac9e4faafd0b9f6.mesh"
+
+[deps]
+
+files=[ "res://.import/Window Lights.obj-c83b76fa1bb52be74ac9e4faafd0b9f6.mesh" ]
+
+source_file="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/Window Lights.obj"
+dest_files=[ "res://.import/Window Lights.obj-c83b76fa1bb52be74ac9e4faafd0b9f6.mesh", "res://.import/Window Lights.obj-c83b76fa1bb52be74ac9e4faafd0b9f6.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

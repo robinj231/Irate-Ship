@@ -2,3 +2,5 @@ https://roystan.net/articles/toon-water/
 https://roystan.net/articles/toon-shader/
 https://www.youtube.com/watch?v=eL_zHQEju8s
 https://catlikecoding.com/unity/tutorials/flow/waves/
+
+https://www.youtube.com/watch?v=6-eIEFPcvrU

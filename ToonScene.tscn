@@ -1,0 +1,186 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://toon.shader" type="Shader" id=1]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/link.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/Island.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/pupil.png" type="Texture" id=4]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsSS04.png" type="Texture" id=5]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/sheath.png" type="Texture" id=6]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/eye1.png" type="Texture" id=7]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsSS01.png" type="Texture" id=8]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/eyebrow1.png" type="Texture" id=9]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/mouth1.png" type="Texture" id=10]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsMM02.png" type="Texture" id=11]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsSS06.png" type="Texture" id=12]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsMM03.png" type="Texture" id=13]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsSS07.png" type="Texture" id=14]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Outset Island/OutsSS00.png" type="Texture" id=15]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Link/Link/body.png" type="Texture" id=16]
+[ext_resource path="res://ToonEntity.gd" type="Script" id=17]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="ShaderMaterial" id=21]
+shader = ExtResource( 1 )
+shader_param/specular = false
+shader_param/rim = false
+shader_param/albedo = Color( 0.205841, 0.603911, 0.742188, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 32.0
+shader_param/uv1_scale = null
+shader_param/uv1_offset = null
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.716
+shader_param/rimThreshold = 0.1
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_texture = ExtResource( 15 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 13 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 11 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_texture = ExtResource( 8 )
+
+[sub_resource type="SpatialMaterial" id=9]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_texture = ExtResource( 14 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 12 )
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=23]
+shader = ExtResource( 1 )
+shader_param/specular = false
+shader_param/rim = false
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 32.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.716
+shader_param/rimThreshold = 0.1
+shader_param/texture_albedo = ExtResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=24]
+shader = ExtResource( 1 )
+shader_param/specular = false
+shader_param/rim = false
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 32.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.716
+shader_param/rimThreshold = 0.1
+shader_param/texture_albedo = ExtResource( 10 )
+
+[sub_resource type="SpatialMaterial" id=17]
+render_priority = 1
+flags_transparent = true
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=18]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=19]
+render_priority = 1
+flags_transparent = true
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=20]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = ExtResource( 1 )
+shader_param/specular = false
+shader_param/rim = false
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 32.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.716
+shader_param/rimThreshold = 0.1
+shader_param/texture_albedo = ExtResource( 16 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 21 )
+script = ExtResource( 17 )
+
+[node name="Island" type="MeshInstance" parent="."]
+transform = Transform( 0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, -90.0521 )
+visible = false
+mesh = ExtResource( 3 )
+material/0 = SubResource( 5 )
+material/1 = SubResource( 6 )
+material/2 = SubResource( 7 )
+material/3 = SubResource( 8 )
+material/4 = SubResource( 9 )
+material/5 = SubResource( 10 )
+material/6 = SubResource( 11 )
+material/7 = SubResource( 12 )
+
+[node name="link" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 26.8244 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("")
+material/0 = SubResource( 13 )
+material/1 = SubResource( 23 )
+material/2 = SubResource( 15 )
+material/3 = SubResource( 24 )
+material/4 = SubResource( 17 )
+material/5 = SubResource( 18 )
+material/6 = SubResource( 19 )
+material/7 = SubResource( 20 )
+material/8 = SubResource( 22 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5.85239, 8.1062 )
+visible = false
+shadow_enabled = true
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.909773, 0.415106, 0, -0.415106, 0.909773, 0, 2.05348, 6.42952 )
+shadow_enabled = true
+spot_range = 2560.0
