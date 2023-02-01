@@ -4,7 +4,7 @@ render_mode async_visible,blend_mix,depth_draw_opaque,cull_back,unshaded;
 uniform bool specular = false;
 uniform bool rim = false;
 
-uniform vec4 albedo : hint_color;
+uniform vec4 albedo : hint_color = vec4(1,1,1,1);
 uniform sampler2D texture_albedo : hint_albedo;
 
 uniform vec4 ambientColor : hint_color = vec4(0.4,0.4,0.4,1);
@@ -13,10 +13,10 @@ uniform float glossiness = 32;
 
 uniform sampler2D diffuseCurve : hint_white;
 
-uniform vec3 uv1_scale;
+uniform vec3 uv1_scale = vec3(1,1,1);
 uniform vec3 uv1_offset;
 
-uniform vec3 lightDir;
+uniform vec3 lightDir = vec3(1,1,1);
 uniform vec4 lightColor : hint_color = vec4(1, 1, 1, 1);
 
 uniform vec4 rimColor : hint_color = vec4(1,1,1,1);

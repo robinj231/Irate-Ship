@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://WaterMesh.gd" type="Script" id=1]
+[ext_resource path="res://toon.shader" type="Shader" id=2]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Beedles Boat/Boat.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://GameCube - The Legend of Zelda The Wind Waker - Beedles Boat/V_tsp.png" type="Texture" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/specular = false
+shader_param/rim = false
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 32.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = null
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.716
+shader_param/rimThreshold = 0.1
+shader_param/texture_albedo = ExtResource( 4 )
+
+[sub_resource type="ArrayMesh" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Boat" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-09, -0.1, -4.37114e-09, 0, -4.37114e-09, 0.1, -0.1, 4.37114e-09, 1.91069e-16, 1.28252, 3.53251, -2.35464 )
+visible = false
+mesh = ExtResource( 3 )
+material/0 = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+script = ExtResource( 1 )
