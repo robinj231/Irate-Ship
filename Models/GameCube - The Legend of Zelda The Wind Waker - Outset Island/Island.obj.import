@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Island.obj-2e8a1915945b6b0374205049170f9784.mesh"
+
+[deps]
+
+files=[ "res://.import/Island.obj-2e8a1915945b6b0374205049170f9784.mesh" ]
+
+source_file="res://Models/GameCube - The Legend of Zelda The Wind Waker - Outset Island/Island.obj"
+dest_files=[ "res://.import/Island.obj-2e8a1915945b6b0374205049170f9784.mesh", "res://.import/Island.obj-2e8a1915945b6b0374205049170f9784.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

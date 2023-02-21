@@ -2,13 +2,11 @@ extends MeshInstance
 tool
 
 # Declare member variables here. Examples:
-export (NodePath) onready var light = get_parent().get_node("DirectionalLight");
+export (NodePath) onready var light = get_node("/root/Spatial/DirectionalLight");
 var lightDir;
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	light = get_parent().get_node("DirectionalLight");
 	factorLighting();
 
 
@@ -20,5 +18,5 @@ func factorLighting():
 
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if(lightDir != -light.transform.basis.x):
+	if(light != null and lightDir != light.transform.basis.z):
 		factorLighting();
