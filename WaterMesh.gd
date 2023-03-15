@@ -1,5 +1,4 @@
 extends "res://ToonEntity.gd"
-tool
 
 var vertices = PoolVector3Array();
 var indexes = PoolIntArray();
@@ -17,7 +16,7 @@ export(Vector2) var waveCDir;
 export(float) var waveCSteepness;
 export(float) var waveCLength;
 
-export (int) var generate = 0;
+export (bool) var generate = false;
 
 export(int) var width = 10;
 
@@ -29,7 +28,9 @@ export(Color) var waterColor;
 var waterShader;
 
 func _ready():
-	if Engine.editor_hint and generate:
+	time = 0;
+	#set as tool to regenerate mesh
+	if Engine.editor_hint and generate == true:
 		GenerateMesh();
 		set_surface_material(0, waterShaderInstance);
 	time = 0.0;
@@ -43,7 +44,6 @@ func _ready():
 	waterShader.set_shader_param("waveCDir", waveCDir);
 	waterShader.set_shader_param("waveCSteepness", waveCSteepness);
 	waterShader.set_shader_param("waveCLength", waveCLength);
-	waterShader.set_shader_param("albedo", waterColor);
 	
 
 func _physics_process(delta):
@@ -82,7 +82,7 @@ func GenerateMesh():
 	for z in width:
 		for x in width:
 			vertices.push_back(Vector3(x,0,z));
-			uv.push_back(Vector2(x/20.0,z/20.0));
+			uv.push_back(Vector2(x,z));
 
 
 

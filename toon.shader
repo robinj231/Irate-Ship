@@ -4,14 +4,15 @@ render_mode async_visible,blend_mix,depth_draw_opaque,cull_back,unshaded;
 uniform bool specular = false;
 uniform bool rim = false;
 
-uniform vec4 albedo : hint_color = vec4(1,1,1,1);
+uniform vec4 tint : hint_color = vec4(1,1,1,1);
 uniform sampler2D texture_albedo : hint_albedo;
 
 uniform vec4 ambientColor : hint_color = vec4(0.4,0.4,0.4,1);
 uniform vec4 specularColor : hint_color = vec4(0.9,0.9,0.9,1);
 uniform float glossiness = 32;
 
-uniform sampler2D diffuseCurve : hint_white;
+uniform float diffuseCurveStart = 0.07;
+uniform float diffuseCurveEnd = 0.32;
 
 uniform vec3 uv1_scale = vec3(1,1,1);
 uniform vec3 uv1_offset;
@@ -30,7 +31,7 @@ void vertex() {
 void fragment() {
 	vec3 viewLightDir = normalize((INV_CAMERA_MATRIX * vec4(lightDir, 0.0)).xyz);
 	float NdotL = dot(NORMAL, viewLightDir);
-	float lightIntensity = smoothstep(0, 0.01, NdotL);
+	float lightIntensity = smoothstep(diffuseCurveStart, diffuseCurveEnd, NdotL);
 	
 	vec3 light = lightIntensity * lightColor.rgb;
 	
@@ -58,5 +59,5 @@ void fragment() {
 		lightingFinal += rimFinal.rgb;
 	}
 	
-	ALBEDO = albedo.rgb * albedo_tex.rgb * lightingFinal;
+	ALBEDO = tint.rgb * albedo_tex.rgb * lightingFinal;
 }

@@ -7,3 +7,9 @@ https://www.youtube.com/watch?v=6-eIEFPcvrU
 
 https://www.youtube.com/watch?v=wCNsvVsk8W8
 https://www.youtube.com/watch?v=qm5cDNbtGig
+
+https://medium.com/@gordonnl/wind-waker-graphics-analysis-a0b575a31127
+https://www.reddit.com/r/emulation/comments/8z01z7/wind_waker_hd_wii_u_improperly_recreates_wind/
+
+Godot particle effects:
+https://www.youtube.com/watch?v=DkJ2jYl-ESw

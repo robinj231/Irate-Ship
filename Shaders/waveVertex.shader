@@ -1,15 +1,16 @@
 shader_type spatial;
-//render_mode async_visible,blend_mix,depth_draw_opaque,cull_back,unshaded;
-render_mode async_visible,blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;
-
-uniform float roughness : hint_range(0,1) = 0.2;
-uniform float metallic : hint_range(0,1) = 1.0;
-uniform float specular : hint_range(0,1) = 1.0;
+render_mode async_visible,blend_mix,depth_draw_always,cull_back,unshaded;
+//render_mode async_visible,blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlick_ggx;
 
 const float pi = 3.14159265358979323846;
 
+uniform float fogStart;
+uniform float fogEnd;
+uniform vec4 fogColor : hint_color = vec4(1,1,1,1);
+uniform sampler2D fogCurve;
+
 uniform vec4 albedo : hint_color = vec4(1,1,1,1);
-uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D foam_texture : hint_albedo;
 uniform sampler2D edge_noise : hint_white;
 uniform sampler2D texture_noise : hint_white;
 
@@ -19,9 +20,6 @@ uniform sampler2D diffuseCurve : hint_white;
 
 uniform vec3 uv1_scale = vec3(1,1,1);
 uniform vec3 uv1_offset;
-
-uniform vec3 lightDir = vec3(1,1,1);
-uniform vec4 lightColor : hint_color = vec4(1, 1, 1, 1);
 
 // wave(dir.x, dir.y, steepness, wavelength)
 uniform vec2 waveADir;
@@ -39,6 +37,11 @@ uniform float foamDistance = 0.4;
 
 uniform float texture_displacement = 0.075;
 uniform vec2 displacement_scale = vec2(5,5);
+
+uniform vec4 edge_color : hint_color = vec4(1.0);
+uniform float edge_smoothness = 0.05;
+uniform float edge_max_threshold = 0.5;
+uniform float edge_displacement = 0.6;
 
 uniform vec3 playerPos;
 
@@ -74,31 +77,16 @@ float gerstnerWave(vec2 waveDir, float waveSteepness, float waveLength, vec3 ver
 }
 
 void vertex() {
+	UV=(WORLD_MATRIX*vec4(UV.x,1,UV.y,1)).xz;
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
 	vec3 tangent = vec3(1,0,0);
 	vec3 binormal = vec3(0,0,1);
-	VERTEX.y = gerstnerWave(waveADir, waveASteepness, waveALength, VERTEX, tangent, binormal);
-	VERTEX.y += gerstnerWave(waveBDir, waveBSteepness, waveBLength, VERTEX, tangent, binormal);
-	VERTEX.y += gerstnerWave(waveCDir, waveCSteepness, waveCLength, VERTEX, tangent, binormal);
+	vec3 worldVertexPos = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	VERTEX.y = gerstnerWave(waveADir, waveASteepness, waveALength, worldVertexPos, tangent, binormal);
+	VERTEX.y += gerstnerWave(waveBDir, waveBSteepness, waveBLength, worldVertexPos, tangent, binormal);
+	VERTEX.y += gerstnerWave(waveCDir, waveCSteepness, waveCLength, worldVertexPos, tangent, binormal);
 	NORMAL = normalize(cross(binormal, tangent));
 }
-
-/*
-void fragment() {
-	vec3 viewLightDir = normalize((INV_CAMERA_MATRIX * vec4(lightDir, 0.0)).xyz);
-	float NdotL = dot(NORMAL, viewLightDir);
-	float lightIntensity = smoothstep(0, 0.01, NdotL);
-	
-	vec3 light = lightIntensity * lightColor.rgb;
-	
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	
-	vec3 lightingFinal = ambientColor.rgb + light;
-	
-	ALBEDO = albedo.rgb * albedo_tex.rgb * lightingFinal;
-}
-*/
 
 void fragment() {
 	// These calculate the distance between the water and whatever's behind it,
@@ -109,6 +97,15 @@ void fragment() {
 	float zpos = linearize(FRAGCOORD.z, INV_PROJECTION_MATRIX, SCREEN_UV);
 	float diff = zdepth - zpos;
 	
+	// These randomize the difference calculated previously using the displacement
+	// texture and amount. The second to last line checks if the pixel is not in
+	// in front of the water. Try commenting it out and see some pesky 1 pixel
+	// wide outline around anything in front of the sea.
+	float edge_displ = texture(edge_noise, UV - objTime / 60.0).r;
+	edge_displ = ((edge_displ * 2.0) - 1.0) * edge_displacement;
+	float t = diff < 0.0 ? 1.0 : diff + edge_displ;
+	float smoothness = smoothstep(edge_max_threshold, edge_max_threshold + edge_smoothness, t);
+	
 	vec2 turbidity = normalize(waveADir * max(waveASteepness, 0.5) + waveBDir * waveBSteepness + waveCDir * waveCSteepness);
 	
 	vec2 tex_displ = texture(texture_noise, UV / displacement_scale).rg;
@@ -116,16 +113,13 @@ void fragment() {
 	tex_displ += objTime * .05 * turbidity;
 	
 	vec2 base_uv = UV + tex_displ;
-	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	if(diff < foamDistance)
+	vec4 albedo_tex = albedo + texture(foam_texture,base_uv)*edge_color;
+	
+	ALBEDO = mix(edge_color, albedo_tex, smoothness).rgb;
+	if(zpos > fogStart)
 	{
-		ALBEDO = vec3(1,1,1);
+		float fogCurveVal = texture(fogCurve, vec2((zpos-fogStart)/(fogEnd-fogStart),0)).r;
+		ALBEDO = mix(ALBEDO, fogColor.rgb, fogCurveVal);
 	}
-	else
-	{
-		ALBEDO = albedo.rgb * albedo_tex.rgb;
-	}
-	ROUGHNESS = roughness;
-	SPECULAR = specular;
-	METALLIC = metallic;
+	
 }

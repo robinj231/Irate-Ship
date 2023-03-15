@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Models/boat_v1_L2.123c33ddbc31-7a29-45c6-b2d4-46783ecf5042/11807_boat_v1_L2.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Models/boat_v1_L2.123c33ddbc31-7a29-45c6-b2d4-46783ecf5042/boat_diffuse_v1.jpg" type="Texture" id=3]
+[ext_resource path="res://FloatingObj.gd" type="Script" id=4]
+[ext_resource path="res://ToonEntity.gd" type="Script" id=5]
+[ext_resource path="res://BoatControl.gd" type="Script" id=6]
+[ext_resource path="res://toon.shader" type="Shader" id=7]
+
+[sub_resource type="ShaderMaterial" id=30]
+shader = ExtResource( 7 )
+shader_param/specular = true
+shader_param/rim = true
+shader_param/tint = Color( 1, 1, 1, 1 )
+shader_param/ambientColor = Color( 0.4, 0.4, 0.4, 1 )
+shader_param/specularColor = Color( 0.9, 0.9, 0.9, 1 )
+shader_param/glossiness = 12.0
+shader_param/diffuseCurveStart = 0.07
+shader_param/diffuseCurveEnd = 0.32
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = null
+shader_param/lightDir = Vector3( 1, 1, 1 )
+shader_param/lightColor = Color( 1, 1, 1, 1 )
+shader_param/rimColor = Color( 1, 1, 1, 1 )
+shader_param/rimAmount = 0.464
+shader_param/rimThreshold = 0.1
+shader_param/texture_albedo = ExtResource( 3 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 2.28574, 0.317, 0.836996 )
+
+[sub_resource type="CubeMesh" id=8]
+
+[node name="Boat" type="RigidBody"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 4.436, 0 )
+linear_damp = 1.0
+angular_damp = 5.0
+script = ExtResource( 6 )
+moveSpeed = 400.0
+turnSpeed = 200.0
+jumpStrength = 10.0
+
+[node name="Model" type="MeshInstance" parent="."]
+transform = Transform( 2.62268e-09, -0.02, -8.74228e-10, 0, -8.74228e-10, 0.02, -0.02, -2.62268e-09, -1.14641e-16, 0, 0, 0 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 30 )
+script = ExtResource( 5 )
+light = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 4 )
+
+[node name="BLFloater" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.286, 0, -0.837 )
+script = ExtResource( 4 )
+depthBeforeSubmerged = 0.75
+depthOffset = 0.0
+displacementAmount = 8.0
+waterDrag = 2.5
+waterAngularDrag = 0.0
+
+[node name="BRFloater" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.286, 0, 0.837 )
+script = ExtResource( 4 )
+depthBeforeSubmerged = 0.75
+depthOffset = 0.0
+displacementAmount = 8.0
+waterDrag = 2.5
+waterAngularDrag = 0.0
+
+[node name="FLFloater" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.286, 0, -0.837 )
+script = ExtResource( 4 )
+depthBeforeSubmerged = 0.75
+depthOffset = 0.0
+displacementAmount = 8.0
+waterDrag = 2.5
+waterAngularDrag = 0.0
+
+[node name="FRFloater" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.286, 0, 0.837 )
+script = ExtResource( 4 )
+depthBeforeSubmerged = 0.75
+depthOffset = 0.0
+displacementAmount = 8.0
+waterDrag = 2.5
+waterAngularDrag = 0.0
+
+[node name="ColliderVisual" type="MeshInstance" parent="."]
+transform = Transform( 1.626, 0, 0, 0, 0.307, 0, 0, 0, 1.5, 0, 0, 0 )
+visible = false
+mesh = SubResource( 8 )

@@ -48,3 +48,5 @@ func _physics_process(delta):
 		if(global_transform.origin.y < waveHeight):
 			apply_central_impulse(Vector3.UP *  jumpStrength);
 		jump = false;
+	sea.global_transform.origin.x = global_transform.origin.x-500;
+	sea.global_transform.origin.z = global_transform.origin.z-500;
